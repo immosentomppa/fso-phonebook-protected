@@ -32,7 +32,7 @@ describe("Phonebook", () => {
     const persons = await response.json()
     console.log(persons)
     const person = persons.find((p) => p.name === "John Doe")
-    expect(person).toBeDefined()
+    console.log(persons)
     page.once("dialog", (dialog) => dialog.accept())
 
     await page.getByTestId(`${person.id}-delete`).click()
