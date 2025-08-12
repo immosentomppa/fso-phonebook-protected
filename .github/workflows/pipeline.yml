@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-22.04 # latest 24.04 introduces some errors with playwright in Github Actions
     env:
       PORT: 3001
-      MONGODB_URI: ${ { secrets.MONGODB_URI } }
+      MONGODB_URI: ${{secrets.MONGODB_URI}}
       NODE_ENV: development
       PLAYWRIGHT_BASE_URL: http://localhost:5173
       VITE_API_URL: /api/persons
