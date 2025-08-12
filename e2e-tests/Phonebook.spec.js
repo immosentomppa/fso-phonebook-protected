@@ -30,9 +30,9 @@ describe("Phonebook", () => {
     // get id from api /api/persons where name is john doe
     const response = await page.request.get("/api/persons")
     const persons = await response.json()
-    console.log(persons)
+    console.log("persons", persons)
     const person = persons.find((p) => p.name === "John Doe")
-    console.log(persons)
+    console.log("person", person)
     page.once("dialog", (dialog) => dialog.accept())
 
     await page.getByTestId(`${person.id}-delete`).click()
