@@ -1,4 +1,5 @@
 const { test, expect, beforeEach, describe } = require("@playwright/test")
+const { waitForPerson } = require("./utils")
 
 describe("Phonebook", () => {
   beforeEach(async ({ page }) => {
@@ -31,7 +32,7 @@ describe("Phonebook", () => {
     const response = await page.request.get("/api/persons")
     const persons = await response.json()
     console.log("persons", persons)
-    const person = persons.find((p) => p.name === "John Doe")
+    const person = await waitForPerson(page, "John Doe")
     console.log("person", person)
     page.once("dialog", (dialog) => dialog.accept())
 
