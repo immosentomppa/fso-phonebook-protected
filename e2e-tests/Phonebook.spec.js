@@ -29,8 +29,8 @@ describe("Phonebook", () => {
 
     // get id from api /api/persons where name is john doe
     const response = await page.request.get("/api/persons")
-    console.log("Response status:", response.json())
     const persons = await response.json()
+    console.log(persons)
     const person = persons.find((p) => p.name === "John Doe")
     expect(person).toBeDefined()
     page.once("dialog", (dialog) => dialog.accept())
