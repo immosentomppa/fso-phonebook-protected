@@ -40,12 +40,12 @@ jobs:
           npx wait-on http://localhost:5173
           npx playwright test --reporter=dot
 
-      - name: Print backend log on failure
-        if: failure()
+      - name: Print backend log
+        if: always()
         run: cat backend.log || true
 
-      - name: Print frontend log on failure
-        if: failure()
+      - name: Print frontend log
+        if: always()
         run: cat frontend.log || true
 
       - name: Trigger deployment
