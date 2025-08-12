@@ -11,6 +11,9 @@ on:
 jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-22.04 # latest 24.04 introduces some errors with playwright in Github Actions
+    env:
+      PLAYWRIGHT_BASE_URL: http://localhost:5173
+      VITE_API_URL: /api/persons
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,6 +25,11 @@ jobs:
         run: npm run lint
       - name: Build project
         run: npm run build
+      - name: Start frontend and server
+        run: |
+          npm run start-prod &
+          sleep 10
+          npm run start &
       - name: Run tests with vitest
         run: npm run test
       - name: Install Playwright Browsers
