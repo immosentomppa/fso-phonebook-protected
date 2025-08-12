@@ -2,7 +2,7 @@ const { test, expect, beforeEach, describe } = require("@playwright/test")
 
 describe("Phonebook", () => {
   beforeEach(async ({ page }) => {
-    await page.goto("/")
+    await page.goto("")
     // clear john doe before each test
     const response = await page.request.get("/api/persons")
     const persons = await response.json()

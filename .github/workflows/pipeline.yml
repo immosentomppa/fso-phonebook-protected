@@ -12,6 +12,7 @@ jobs:
   simple_deployment_pipeline:
     runs-on: ubuntu-22.04 # latest 24.04 introduces some errors with playwright in Github Actions
     env:
+      NODE_ENV: development
       PLAYWRIGHT_BASE_URL: http://localhost:5173
       VITE_API_URL: /api/persons
     steps:
@@ -25,17 +26,16 @@ jobs:
         run: npm run lint
       - name: Build project
         run: npm run build
-      - name: Start frontend and server
-        run: |
-          npm run start-prod &
-          sleep 10
-          npm run start &
       - name: Run tests with vitest
         run: npm run test
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: e2e tests
-        run: npx playwright test --reporter=dot
+      - name: Start frontend and backend, run e2e tests
+        run: |
+          npm run start-prod &
+          npm run start &
+          npx wait-on http://localhost:5173 http://localhost:3001
+          npx playwright test --reporter=dot
 
       - name: Trigger deployment
         if: ${{github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
