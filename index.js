@@ -98,6 +98,10 @@ app.put("/api/persons/:id", (request, response, next) => {
     .catch((error) => next(error))
 })
 
+app.get("/api/health", (req, res) => {
+  res.send("ok")
+})
+
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: "unknown endpoint" })
 }
@@ -123,8 +127,4 @@ app.use(errorHandler)
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
-})
-
-app.get("/health", (req, res) => {
-  res.send("ok")
 })
