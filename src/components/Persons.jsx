@@ -6,7 +6,7 @@ const Persons = ({ personsToShow, handleDelete }) => {
           {person.name} {person.number}{" "}
           <button
             type="button"
-            data-testid={person.number}
+            data-testid={`${person.id}-delete`}
             onClick={() => handleDelete(person.id)}
           >
             delete

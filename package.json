@@ -4,10 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "vite",
-    "start-server": "node index.js",
     "start-prod": "node index.js",
     "test": "vitest run",
-    "test:e2e": "playwright test --reporter=dot",
+    "test:e2e": "playwright test --reporter=dot --ui",
     "lint": "eslint .",
     "build": "vite build"
   },
