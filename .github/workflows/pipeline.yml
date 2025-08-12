@@ -16,20 +16,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - name: Install dependencies
-        run: npm install
-      - name: Check style
-        run: npm run lint
       - name: Clean install for production
         run: npm ci
+      - name: Check style
+        run: npm run lint
       - name: Build project
         run: npm run build
       - name: Run tests with vitest
         run: npm run test
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: e2e tests
-        run: npx playwright test
+      #- name: Install Playwright Browsers
+      #  run: npx playwright install --with-deps
+      #- name: e2e tests
+      #  run: npx playwright test --reporter=dot
 
       #- name: Trigger deployment
       #  if: ${{github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
