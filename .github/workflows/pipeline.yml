@@ -30,12 +30,21 @@ jobs:
         run: npm run test
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Start frontend and backend, run e2e tests
+      - name: Start backend and frontend, run e2e tests
         run: |
-          npm run start-prod &
-          npm run start &
-          npx wait-on http://localhost:5173 http://localhost:3001
+          npm run start-prod > backend.log 2>&1 &
+          npx wait-on http://localhost:3001
+          npm run start > frontend.log 2>&1 &
+          npx wait-on http://localhost:5173
           npx playwright test --reporter=dot
+
+      - name: Print backend log on failure
+        if: failure()
+        run: cat backend.log || true
+
+      - name: Print frontend log on failure
+        if: failure()
+        run: cat frontend.log || true
 
       - name: Trigger deployment
         if: ${{github.event_name == 'push' && !contains(github.event.head_commit.message, '#skip') }}
